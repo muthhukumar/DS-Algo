@@ -1,0 +1,15 @@
+{
+  "name": "javascript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "muthukumar",
+  "license": "ISC",
+  "devDependencies": {
+    "vitest": "^0.32.2"
+  }
+}
