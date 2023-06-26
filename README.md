@@ -1,2 +1,2 @@
-# datastructures-and-algorithms
+# Data Structures and Algorithms
 WIP
