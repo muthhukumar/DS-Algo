@@ -48,12 +48,12 @@ impl Queue {
             Some(head) => {
                 if let Some(next) = head.borrow_mut().next.take() {
                     self.head = Some(Rc::clone(&next));
+                    self.size -= 1;
                 } else {
                     self.head = None;
                     self.tail = None;
                 }
 
-                self.size -= 1;
                 Some(head.borrow().value)
             }
             None => {
