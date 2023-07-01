@@ -37,6 +37,8 @@ class Stack<T> {
       return undefined;
     }
 
+    this.length--;
+
     const head = this.head;
 
     this.head = this.head.prev;
