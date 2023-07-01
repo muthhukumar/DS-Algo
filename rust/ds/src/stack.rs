@@ -83,7 +83,6 @@ mod tests {
         stack.push(2);
 
         assert_eq!(2, stack.size());
-
         assert_eq!(2, stack.pop().unwrap());
         assert_eq!(1, stack.pop().unwrap());
 
