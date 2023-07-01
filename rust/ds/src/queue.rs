@@ -48,12 +48,12 @@ impl Queue {
             Some(head) => {
                 if let Some(next) = head.borrow_mut().next.take() {
                     self.head = Some(Rc::clone(&next));
-                    self.size -= 1;
                 } else {
                     self.head = None;
                     self.tail = None;
                 }
 
+                self.size -= 1;
                 Some(head.borrow().value)
             }
             None => {
@@ -72,5 +72,26 @@ impl Queue {
 
     pub fn size(&self) -> usize {
         self.size
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::Queue;
+
+    #[test]
+    fn should_have_all_queued_elements() {
+        let mut queue: Queue = Queue::new();
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+
+        assert_eq!(3, queue.size());
+
+        assert_eq!(1, queue.dequeue().unwrap());
+        assert_eq!(2, queue.dequeue().unwrap());
+        assert_eq!(3, queue.dequeue().unwrap());
+
+        assert_eq!(0, queue.size());
     }
 }
