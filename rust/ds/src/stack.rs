@@ -11,7 +11,7 @@ impl SNode {
     }
 }
 
-struct Stack {
+pub struct Stack {
     head: Option<Rc<RefCell<SNode>>>,
     size: usize,
 }
@@ -43,16 +43,17 @@ impl Stack {
     pub fn pop(&mut self) -> Option<i32> {
         match self.head.take() {
             Some(head) => {
-                match (*head.borrow_mut()).prev {
-                    None => {
-                        self.head = None;
-                    }
+                match head.borrow_mut().prev.take() {
                     Some(prev) => {
                         self.head = Some(Rc::clone(&prev));
                     }
+                    None => {
+                        self.head = None;
+                    }
                 }
 
-                return Some((*head.borrow()).value);
+                self.size -= 1;
+                Some(head.borrow().value)
             }
             None => None,
         }
@@ -75,11 +76,13 @@ mod tests {
     use super::Stack;
 
     #[test]
-    fn test() {
+    fn should_have_pushed_elements() {
         let mut stack = Stack::new();
 
         stack.push(1);
         stack.push(2);
+
+        assert_eq!(2, stack.size());
 
         assert_eq!(2, stack.pop().unwrap());
         assert_eq!(1, stack.pop().unwrap());
