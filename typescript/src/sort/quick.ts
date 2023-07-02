@@ -34,4 +34,6 @@ function partition(arr: number[], lo: number, hi: number): number {
 
 const input = [9, 1, 4, 8, 3, 6];
 
-// input === [1, 3, 4, 6, 8, 9];
+qs(input, 0, input.length - 1);
+
+console.log(`expect ${JSON.stringify(input)} to be [1, 3, 4, 6, 8, 9]`);
