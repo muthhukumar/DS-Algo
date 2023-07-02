@@ -65,7 +65,7 @@ fn walk(
         return true;
     }
 
-    // is wall
+    // wall
     if maze[curr.y][curr.x] == wall {
         return false;
     }
