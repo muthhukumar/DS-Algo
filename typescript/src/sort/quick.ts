@@ -32,8 +32,6 @@ function partition(arr: number[], lo: number, hi: number): number {
   return idx;
 }
 
-const input = [9, 1, 4, 8, 3, 6];
-
-qs(input, 0, input.length - 1);
-
-console.log(`expect ${JSON.stringify(input)} to be [1, 3, 4, 6, 8, 9]`);
+export default function quickSort(arr: Array<number>) {
+  return qs(arr, 0, arr.length - 1);
+}

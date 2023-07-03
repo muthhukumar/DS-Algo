@@ -1,8 +1,3 @@
-declare type Point = {
-  x: number;
-  y: number;
-};
-
 const dir = [
   [-1, 0],
   [1, 0],
@@ -85,32 +80,3 @@ export default function solve(
 
   return paths;
 }
-
-const maze = [
-  "xxxxxxxxxx x",
-  "x        x x",
-  "x        x x",
-  "x xxxxxxxx x",
-  "x          x",
-  "x xxxxxxxxxx",
-];
-
-const mazeResult = [
-  { x: 10, y: 0 },
-  { x: 10, y: 1 },
-  { x: 10, y: 2 },
-  { x: 10, y: 3 },
-  { x: 10, y: 4 },
-  { x: 9, y: 4 },
-  { x: 8, y: 4 },
-  { x: 7, y: 4 },
-  { x: 6, y: 4 },
-  { x: 5, y: 4 },
-  { x: 4, y: 4 },
-  { x: 3, y: 4 },
-  { x: 2, y: 4 },
-  { x: 1, y: 4 },
-  { x: 1, y: 5 },
-];
-
-mazeResult === solve(maze, "#", { x: 10, y: 0 }, { x: 1, y: 5 });

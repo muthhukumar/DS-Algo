@@ -8,7 +8,7 @@ class ListNode<T> {
   }
 }
 
-export class DoublyLinkedList<T> {
+export default class DoublyLinkedList<T> {
   private head: ListNode<T> | undefined;
   private tail: ListNode<T> | undefined;
   public length: number;

@@ -7,7 +7,7 @@ class SNode<T> {
   }
 }
 
-class Stack<T> {
+export default class Stack<T> {
   length: number;
   head?: SNode<T>;
 
