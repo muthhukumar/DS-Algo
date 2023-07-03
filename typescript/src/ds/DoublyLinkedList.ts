@@ -1,6 +1,6 @@
-class LinkedNode<T> {
-  prev: LinkedNode<T> | undefined;
-  next: LinkedNode<T> | undefined;
+class ListNode<T> {
+  prev: ListNode<T> | undefined;
+  next: ListNode<T> | undefined;
   value: T;
   constructor(value: T) {
     this.value = value;
@@ -8,20 +8,20 @@ class LinkedNode<T> {
   }
 }
 
-class DoublyLinkedList<T> {
-  private head: LinkedNode<T> | undefined;
-  private tail: LinkedNode<T> | undefined;
-  private length: number;
+export class DoublyLinkedList<T> {
+  private head: ListNode<T> | undefined;
+  private tail: ListNode<T> | undefined;
+  public length: number;
 
   constructor() {
     this.head = this.tail = undefined;
     this.length = 0;
   }
 
-  append(value: T): void {
+  append(item: T): void {
     this.length++;
 
-    const node = new LinkedNode(value);
+    const node = new ListNode(item);
     if (!this.tail) {
       this.tail = this.head = node;
       return;
@@ -35,9 +35,9 @@ class DoublyLinkedList<T> {
     this.tail = node;
   }
 
-  prepend(value: T): void {
+  prepend(item: T): void {
     this.length++;
-    const node = new LinkedNode(value);
+    const node = new ListNode(item);
 
     if (!this.head) {
       this.head = this.tail = node;
@@ -52,12 +52,12 @@ class DoublyLinkedList<T> {
     this.head = node;
   }
 
-  insertAt(idx: number, value: T): void {
+  insertAt(item: T, idx: number): void {
     if (idx === 0) {
-      this.prepend(value);
+      this.prepend(item);
       return;
     } else if (idx === this.length) {
-      this.append(value);
+      this.append(item);
       return;
     }
 
@@ -69,7 +69,7 @@ class DoublyLinkedList<T> {
 
     this.length++;
 
-    const node = new LinkedNode(value);
+    const node = new ListNode(item);
 
     node.next = curr;
     node.prev = curr.prev;
@@ -81,7 +81,7 @@ class DoublyLinkedList<T> {
     curr.prev = node;
   }
 
-  remove(item: T): void {
+  remove(item: T): T | undefined {
     let curr = this.head;
 
     for (let i = 0; curr && i < this.length; ++i) {
@@ -98,14 +98,16 @@ class DoublyLinkedList<T> {
 
     this.length--;
 
+    const value = curr.value;
+
     if (curr === this.tail) {
       this.tail = this.tail.prev;
-      return;
+      return value;
     }
 
     if (curr === this.head) {
       this.head = this.head.next;
-      return;
+      return value;
     }
 
     if (curr.prev) {
@@ -115,6 +117,8 @@ class DoublyLinkedList<T> {
     if (curr.next) {
       curr.next.prev = curr.prev;
     }
+
+    return value;
   }
 
   removeAt(idx: number): T | undefined {
@@ -153,7 +157,7 @@ class DoublyLinkedList<T> {
     return this.getAt(idx)?.value;
   }
 
-  getAt(idx: number): LinkedNode<T> | undefined {
+  getAt(idx: number): ListNode<T> | undefined {
     let curr = this.head;
 
     for (let i = 0; curr && i < idx; ++i) {
