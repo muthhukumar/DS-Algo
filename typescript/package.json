@@ -4,12 +4,14 @@
   "description": "",
   "main": "",
   "scripts": {
-    "test": "vitest"
+    "test": "jest --watch"
   },
   "keywords": [],
   "author": "muthukumar",
   "license": "ISC",
   "devDependencies": {
-    "vitest": "^0.32.2"
+    "@types/jest": "^29.5.2",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.1"
   }
 }

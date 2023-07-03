@@ -7,7 +7,7 @@ class QNode<T> {
   }
 }
 
-class Queue<T> {
+export default class Queue<T> {
   head?: QNode<T>;
   tail?: QNode<T>;
   length: number;

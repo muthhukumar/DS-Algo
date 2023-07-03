@@ -1,4 +1,4 @@
-function two_crystal_balls(arr: Array<boolean>): number {
+export default function twoCrystalBalls(arr: Array<boolean>): number {
   let jump = Math.sqrt(arr.length);
 
   let i = 0;
