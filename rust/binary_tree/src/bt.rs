@@ -16,6 +16,16 @@ impl BinaryNode {
     }
 }
 
+impl Clone for BinaryNode {
+    fn clone(&self) -> Self {
+        BinaryNode {
+            value: self.value,
+            left: self.left.clone(),
+            right: self.right.clone(),
+        }
+    }
+}
+
 // let tree2 = BinaryNode {
 //     value: 20,
 //     right: Some(Rc::new(RefCell::new(BinaryNode {
