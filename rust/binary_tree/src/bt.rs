@@ -1,5 +1,6 @@
 use std::{cell::RefCell, rc::Rc};
 
+#[derive(Clone)]
 pub struct BinaryNode {
     pub value: i32,
     pub left: Option<Rc<RefCell<BinaryNode>>>,
@@ -12,16 +13,6 @@ impl BinaryNode {
             value,
             left: None,
             right: None,
-        }
-    }
-}
-
-impl Clone for BinaryNode {
-    fn clone(&self) -> Self {
-        BinaryNode {
-            value: self.value,
-            left: self.left.clone(),
-            right: self.right.clone(),
         }
     }
 }
