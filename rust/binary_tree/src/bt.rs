@@ -1,5 +1,6 @@
 use std::{cell::RefCell, rc::Rc};
 
+#[derive(Clone)]
 pub struct BinaryNode {
     pub value: i32,
     pub left: Option<Rc<RefCell<BinaryNode>>>,
