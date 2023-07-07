@@ -1,0 +1,11 @@
+[workspace]
+
+members = [
+    "binary_tree",
+    "ds",
+    "problems",
+    "recursion",
+    "search",
+    "sort",
+]
+

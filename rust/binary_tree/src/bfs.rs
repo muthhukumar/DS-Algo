@@ -1,14 +1,14 @@
-use std::{cell::RefCell, collections::VecDeque, rc::Rc};
-
 use crate::bt::BinaryNode;
+use ds::queue::Queue;
+use std::{cell::RefCell, rc::Rc};
 
 pub fn bfs(head: BinaryNode, needle: i32) -> bool {
-    let mut queue: VecDeque<Rc<RefCell<BinaryNode>>> = VecDeque::new();
+    let mut queue: Queue<Rc<RefCell<BinaryNode>>> = Queue::new();
 
-    queue.push_back(Rc::new(RefCell::new(head)));
+    queue.enqueue(Rc::new(RefCell::new(head)));
 
-    while queue.len() > 0 {
-        match queue.pop_front() {
+    while queue.size() > 0 {
+        match queue.dequeue() {
             None => continue,
             Some(head) => {
                 let head = head.borrow();
@@ -18,11 +18,11 @@ pub fn bfs(head: BinaryNode, needle: i32) -> bool {
                 }
 
                 if let Some(right) = head.right.to_owned() {
-                    queue.push_back(right);
+                    queue.enqueue(right);
                 }
 
                 if let Some(left) = head.left.to_owned() {
-                    queue.push_back(left);
+                    queue.enqueue(left);
                 }
             }
         }
