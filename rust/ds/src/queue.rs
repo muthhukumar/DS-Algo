@@ -1,24 +1,24 @@
 use std::{cell::RefCell, rc::Rc};
 
-pub struct QNode {
-    value: i32,
-    next: Option<Rc<RefCell<QNode>>>,
+pub struct QNode<T: Clone> {
+    value: T,
+    next: Option<Rc<RefCell<QNode<T>>>>,
 }
 
-impl QNode {
-    pub fn new(value: i32) -> Rc<RefCell<QNode>> {
+impl<T: Clone> QNode<T> {
+    pub fn new(value: T) -> Rc<RefCell<QNode<T>>> {
         Rc::new(RefCell::new(QNode { value, next: None }))
     }
 }
 
-pub struct Queue {
-    head: Option<Rc<RefCell<QNode>>>,
-    tail: Option<Rc<RefCell<QNode>>>,
+pub struct Queue<T: Clone> {
+    head: Option<Rc<RefCell<QNode<T>>>>,
+    tail: Option<Rc<RefCell<QNode<T>>>>,
     size: usize,
 }
 
-impl Queue {
-    pub fn new() -> Queue {
+impl<T: Clone> Queue<T> {
+    pub fn new() -> Queue<T> {
         Queue {
             head: None,
             tail: None,
@@ -26,7 +26,7 @@ impl Queue {
         }
     }
 
-    pub fn enqueue(&mut self, value: i32) {
+    pub fn enqueue(&mut self, value: T) {
         self.size += 1;
 
         let node = QNode::new(value);
@@ -43,7 +43,7 @@ impl Queue {
         }
     }
 
-    pub fn dequeue(&mut self) -> Option<i32> {
+    pub fn dequeue(&mut self) -> Option<T> {
         match self.head.take() {
             Some(head) => {
                 if let Some(next) = head.borrow_mut().next.take() {
@@ -54,7 +54,7 @@ impl Queue {
                 }
 
                 self.size -= 1;
-                Some(head.borrow().value)
+                Some(head.borrow().value.clone())
             }
             None => {
                 self.tail = None;
@@ -63,9 +63,9 @@ impl Queue {
         }
     }
 
-    pub fn peek(&self) -> Option<i32> {
+    pub fn peek(&self) -> Option<T> {
         match &self.head {
-            Some(head) => Some(head.borrow().value),
+            Some(head) => Some(head.borrow().value.clone()),
             None => None,
         }
     }
@@ -81,7 +81,7 @@ mod tests {
 
     #[test]
     fn should_have_all_queued_elements() {
-        let mut queue: Queue = Queue::new();
+        let mut queue: Queue<i32> = Queue::new();
         queue.enqueue(1);
         queue.enqueue(2);
         queue.enqueue(3);
