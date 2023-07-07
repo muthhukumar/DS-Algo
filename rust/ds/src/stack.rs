@@ -1,30 +1,30 @@
 use std::{cell::RefCell, rc::Rc};
 
-struct SNode {
-    value: i32,
-    prev: Option<Rc<RefCell<SNode>>>,
+struct SNode<T: Clone> {
+    value: T,
+    prev: Option<Rc<RefCell<SNode<T>>>>,
 }
 
-impl SNode {
-    pub fn new(value: i32) -> Rc<RefCell<SNode>> {
+impl<T: Clone> SNode<T> {
+    pub fn new(value: T) -> Rc<RefCell<SNode<T>>> {
         Rc::new(RefCell::new(SNode { value, prev: None }))
     }
 }
 
-pub struct Stack {
-    head: Option<Rc<RefCell<SNode>>>,
+pub struct Stack<T: Clone> {
+    head: Option<Rc<RefCell<SNode<T>>>>,
     size: usize,
 }
 
-impl Stack {
-    pub fn new() -> Stack {
+impl<T: Clone> Stack<T> {
+    pub fn new() -> Stack<T> {
         Stack {
             head: None,
             size: 0,
         }
     }
 
-    pub fn push(&mut self, value: i32) {
+    pub fn push(&mut self, value: T) {
         let node = SNode::new(value);
 
         match self.head.take() {
@@ -40,7 +40,7 @@ impl Stack {
         self.size += 1;
     }
 
-    pub fn pop(&mut self) -> Option<i32> {
+    pub fn pop(&mut self) -> Option<T> {
         match self.head.take() {
             Some(head) => {
                 match head.borrow_mut().prev.take() {
@@ -53,15 +53,15 @@ impl Stack {
                 }
 
                 self.size -= 1;
-                Some(head.borrow().value)
+                Some(head.borrow().value.clone())
             }
             None => None,
         }
     }
 
-    pub fn peek(&self) -> Option<i32> {
+    pub fn peek(&self) -> Option<T> {
         match &self.head {
-            Some(head) => Some(head.borrow().value),
+            Some(head) => Some(head.borrow().value.clone()),
             None => None,
         }
     }
@@ -77,7 +77,7 @@ mod tests {
 
     #[test]
     fn should_have_pushed_elements() {
-        let mut stack = Stack::new();
+        let mut stack: Stack<i32> = Stack::new();
 
         stack.push(1);
         stack.push(2);
