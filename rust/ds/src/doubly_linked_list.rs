@@ -1,17 +1,15 @@
 use std::{
     cell::RefCell,
-    fmt::Debug as TDebug,
     rc::{Rc, Weak},
 };
 
-#[derive(Debug)]
-struct DLNode<T: Clone + PartialEq + TDebug> {
+struct DLNode<T: Clone + PartialEq> {
     value: T,
     prev: Option<Weak<RefCell<DLNode<T>>>>,
     next: Option<Rc<RefCell<DLNode<T>>>>,
 }
 
-impl<T: Clone + PartialEq + TDebug> DLNode<T> {
+impl<T: Clone + PartialEq> DLNode<T> {
     pub fn new(value: T) -> Rc<RefCell<DLNode<T>>> {
         Rc::new(RefCell::new(DLNode {
             value,
@@ -21,13 +19,13 @@ impl<T: Clone + PartialEq + TDebug> DLNode<T> {
     }
 }
 
-pub struct DoublyLinkedList<T: Clone + PartialEq + TDebug> {
+pub struct DoublyLinkedList<T: Clone + PartialEq> {
     head: Option<Rc<RefCell<DLNode<T>>>>,
     tail: Option<Weak<RefCell<DLNode<T>>>>,
     length: usize,
 }
 
-impl<T: Clone + PartialEq + TDebug> DoublyLinkedList<T> {
+impl<T: Clone + PartialEq> DoublyLinkedList<T> {
     pub fn new() -> DoublyLinkedList<T> {
         DoublyLinkedList {
             head: None,
