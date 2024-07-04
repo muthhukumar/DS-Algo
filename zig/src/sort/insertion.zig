@@ -1,7 +1,7 @@
 const std = @import("std");
 const expect = std.testing.expect;
 
-fn insertionSort(arr: []*u32) void {
+fn insertionSort(arr: []u32) void {
     const arr_len = arr.len;
 
     var i: u32 = 1;
