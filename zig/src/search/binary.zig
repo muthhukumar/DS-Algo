@@ -1,14 +1,12 @@
 const std = @import("std");
 const expect = std.testing.expect;
 
-fn binary_search(haystack: []i32, needle: u32) bool {
-    var low: i32 = 0;
-    var high: i32 = @intCast(haystack.len);
+fn binary_search(haystack: []const i32, needle: u32) bool {
+    var low: usize = 0;
+    var high = haystack.len;
 
     while (low < high) {
-        const cal: i32 = low + (high - low) / 2;
-
-        const mid: usize = std.math.floor(@as(cal, f32));
+        const mid: usize = low + @divFloor(high - low, 2);
 
         const val = haystack[mid];
 
@@ -25,7 +23,7 @@ fn binary_search(haystack: []i32, needle: u32) bool {
 }
 
 test "Binary search" {
-    var list = [_]i32{ 9, 3, 7, 4, 69, 420, 42 };
+    var list = [_]i32{ 3, 4, 7, 9, 42, 69, 420 };
 
     try expect(binary_search(&list, 42) == true);
     try expect(binary_search(&list, 1) == false);
