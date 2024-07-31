@@ -12,7 +12,7 @@ function topKFrequent(nums: number[], k: number): number[] {
   return keys.slice(keys.length - k, keys.length)
 }
 
-function qs(nums: number[], lo: number, high: number, hash): void {
+function qs(nums: number[], lo: number, high: number, hash: Map<number, number>): void {
   if (lo >= high) {
     return
   }
@@ -23,7 +23,7 @@ function qs(nums: number[], lo: number, high: number, hash): void {
   qs(nums, partitionIdx + 1, high, hash)
 }
 
-function partition(nums: number[], lo: number, high: number, hash): number {
+function partition(nums: number[], lo: number, high: number, hash: Map<number, number>): number {
   const pivot = nums[high]
 
   let idx = lo - 1
@@ -46,6 +46,6 @@ function partition(nums: number[], lo: number, high: number, hash): number {
   return idx
 }
 
-function quickSort(nums: number[], hash): void {
+function quickSort(nums: number[], hash: Map<number, number>): void {
   qs(nums, 0, nums.length - 1, hash)
 }
