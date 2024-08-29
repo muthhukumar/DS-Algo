@@ -1,3 +1,4 @@
+// Using memoization
 function fibonacci(n, mem) {
   if (mem[n] >= 0) {
     return mem[n];
@@ -7,11 +8,12 @@ function fibonacci(n, mem) {
     return n;
   }
 
-  mem[n - 1] = fibonacci(n - 2, mem) + fibonacci(n - 1, mem);
+  mem[n] = fibonacci(n - 2, mem) + fibonacci(n - 1, mem);
 
-  return mem[n - 1];
+  return mem[n];
 }
 
+// Normal recursion
 function fibonacci2(n) {
   if (n <= 1) {
     return n;
@@ -20,10 +22,28 @@ function fibonacci2(n) {
   return fibonacci2(n - 2) + fibonacci2(n - 1);
 }
 
-const n = 5000;
+// Using tabulation
+function fibonacci3(n) {
+  if (n <= 1) {
+    return n;
+  }
+
+  const mem = new Array(n + 1).fill(-1);
+
+  mem[0] = 0;
+  mem[1] = 1;
+
+  for (let i = 2; i <= n; i++) {
+    mem[i] = mem[i - 2] + mem[i - 1];
+  }
+
+  return mem[n];
+}
+
+const n = 5;
 const mem = new Array(n + 1).fill(-1);
 
-const [first, second] = [true, false];
+const [first, second, third] = [true, true, true];
 
 if (first) {
   console.time("Fibonacci Time");
@@ -34,5 +54,11 @@ if (first) {
 if (second) {
   console.time("Fibonacci Time");
   console.log(fibonacci2(n));
+  console.timeEnd("Fibonacci Time");
+}
+
+if (third) {
+  console.time("Fibonacci Time");
+  console.log(fibonacci3(n));
   console.timeEnd("Fibonacci Time");
 }
